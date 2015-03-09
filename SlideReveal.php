@@ -60,7 +60,7 @@ class SlideReveal extends \yii\base\Widget
         $id = $this->options['id'];
         $clientOptions = Json::encode($this->clientOptions, JSON_NUMERIC_CHECK);
 
-        $js = "$('#{$id}').slideReveal({$clientOptions})";
+        $js = "$('#{$id}').slideReveal({$clientOptions});";
 
         $this->getView()->registerJs($js, \yii\web\View::POS_END);
     }
