@@ -23,6 +23,8 @@ class SlideReveal extends \yii\base\Widget
 
     public $clientOptions = [];
 
+    public $content = null;
+
     /**
      * Initializes the widget
      */
