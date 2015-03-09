@@ -9,8 +9,8 @@
 namespace demogorgorn\slidereveal;
 
 use yii\helpers\Html;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
+use yii\base\InvalidConfigException;
 
 /**
  *
@@ -34,6 +34,8 @@ class SlideReveal extends \yii\base\Widget
 
         if (!isset($this->options['id'])) 
             $this->options['id'] = $this->getId();
+
+        echo Html::beginTag('div', $this->options);
     }
 
     /**
@@ -43,10 +45,14 @@ class SlideReveal extends \yii\base\Widget
      */
     public function run()
     {
+    	if (!$this->content)
+            throw new InvalidConfigException("The 'content' param is required.");
+
+    	echo $this->content;
+
+    	echo Html::endTag('div');
+
         $this->registerAssets();
-
-        echo Html::tag('div', $this->content, $this->options);
-
     }
 
     /**
