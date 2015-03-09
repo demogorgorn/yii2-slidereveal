@@ -21,9 +21,18 @@ class SlideReveal extends \yii\base\Widget
 {
     public $options = [];
 
-    public $images = [];
+    public $clientOptions = [];
 
-    public $attachElement = null;
+    /**
+     * Initializes the widget
+     */
+    public function init()
+    {
+        parent::init();
+
+        if (!isset($this->options['id'])) 
+            $this->options['id'] = $this->getId();
+    }
 
     /**
      * Runs the widget
@@ -34,6 +43,8 @@ class SlideReveal extends \yii\base\Widget
     {
         $this->registerAssets();
 
+        echo Html::tag('div', $this->content, $this->options);
+
     }
 
     /**
@@ -42,22 +53,12 @@ class SlideReveal extends \yii\base\Widget
     public function registerAssets()
     {
         $view = $this->getView();
-        BackStretchAsset::register($view);
+        SlideRevealAsset::register($view);
 
-        $options = Json::encode($this->options, JSON_NUMERIC_CHECK);
+        $id = $this->options['id'];
+        $clientOptions = Json::encode($this->clientOptions, JSON_NUMERIC_CHECK);
 
-        $js = ($this->attachElement) ? "$('{$this->attachElement}')" : "$"; 
-        $js .= ".backstretch(";
-
-        if (count($this->images) == 1)
-            $js .= '"' . array_shift($this->images) . '"';
-        else
-            $js .= Json::encode($this->images);
-
-        $js .= ",";
-        $js .= $options;
-
-        $js .= ");";
+        $js = "$('#{$id}').slideReveal({$clientOptions})";
 
         $this->getView()->registerJs($js, \yii\web\View::POS_END);
     }
