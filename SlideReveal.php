@@ -45,9 +45,6 @@ class SlideReveal extends \yii\base\Widget
      */
     public function run()
     {
-    	if (!$this->content)
-            throw new InvalidConfigException("The 'content' param is required.");
-
     	echo $this->content;
 
     	echo Html::endTag('div');
