@@ -67,7 +67,7 @@ class SlideReveal extends \yii\base\Widget
 
         $js = "$('#{$id}').slideReveal({$clientOptions});" . PHP_EOL;
         if ($this->varName)
-        	$js .= "var {$this->varName} = " . $js;
+        	$js = "var {$this->varName} = " . $js;
 
         $this->getView()->registerJs($js, \yii\web\View::POS_END);
     }
